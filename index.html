@@ -3,101 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skolarly — Tu plataforma de estudio</title>
+    <title>Skolarly — Tu copiloto de estudio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..800,0..100&family=DM+Sans:opsz,wght@9..40,300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #F2EBDB; --panel: #FFFCF5; --text: #14110D; --text-soft: #2D2823;
+            --muted: #6A6258; --border: #DFD5BC; --border-strong: #CABD9D;
+            --accent: #B04A2C; --accent-hover: #93391E;
+            --font-display: "Fraunces", Georgia, serif;
+            --font-sans: "DM Sans", -apple-system, sans-serif;
+            --font-mono: "JetBrains Mono", "SF Mono", monospace;
+        }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #0f172a;
-            color: #e2e8f0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            font-family: var(--font-sans); background: var(--bg); color: var(--text);
+            min-height: 100vh; line-height: 1.6;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+            display: flex; flex-direction: column;
         }
-        .hero {
-            text-align: center;
-            max-width: 600px;
+
+        header.site {
+            padding: 28px 56px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border);
         }
-        .logo {
-            font-size: 64px;
-            margin-bottom: 16px;
+        .brand {
+            font-family: var(--font-display);
+            font-variation-settings: "opsz" 144, "SOFT" 60;
+            font-size: 24px; font-weight: 500; letter-spacing: -0.02em;
+        }
+        .nav-meta {
+            font-family: var(--font-mono); font-size: 11px;
+            letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--muted); display: flex; gap: 24px; align-items: center;
+        }
+        .nav-meta .accent { color: var(--accent); }
+        .status-dot {
+            display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+            background: #4F7A4C; margin-right: 6px; vertical-align: middle;
+        }
+        .status-dot.offline { background: var(--accent); }
+
+        main {
+            flex: 1;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 80px 56px;
+            max-width: 980px; margin: 0 auto; width: 100%;
+        }
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-mono); font-size: 11px;
+            font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--accent);
+            padding: 4px 10px;
+            border: 1px solid rgba(176,74,44,0.25);
+            background: rgba(176,74,44,0.06);
+            border-radius: 3px;
+            margin-bottom: 24px;
         }
         h1 {
-            font-size: 48px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
+            font-family: var(--font-display);
+            font-variation-settings: "opsz" 144, "SOFT" 60;
+            font-size: clamp(54px, 9vw, 108px);
+            font-weight: 400; line-height: 0.95;
+            letter-spacing: -0.035em; margin-bottom: 24px;
         }
-        p {
-            font-size: 18px;
-            color: #94a3b8;
-            line-height: 1.7;
-            margin-bottom: 32px;
+        h1 em {
+            font-style: italic;
+            font-variation-settings: "opsz" 144, "SOFT" 100;
+            color: var(--accent); font-weight: 400;
         }
-        .features {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
+        .tagline {
+            font-size: 18px; line-height: 1.55; color: var(--text-soft);
+            max-width: 520px; margin-bottom: 40px;
         }
-        .feat {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 16px 20px;
-            font-size: 14px;
-            color: #cbd5e1;
+
+        .cta-group { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn-primary, .btn-secondary {
+            display: inline-flex; align-items: center; gap: 8px;
+            text-decoration: none; padding: 14px 24px;
+            border-radius: 8px; font-size: 14.5px; font-weight: 500;
+            transition: background .15s, border-color .15s, color .15s;
+            cursor: pointer; border: 1px solid;
         }
-        .feat span { font-size: 20px; margin-right: 6px; }
-        .cta {
-            display: inline-block;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            text-decoration: none;
-            padding: 14px 32px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 40px;
+        .btn-primary {
+            background: var(--text); color: var(--panel); border-color: var(--text);
         }
+        .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+        .btn-primary.disabled {
+            background: var(--border); border-color: var(--border);
+            color: var(--muted); pointer-events: none; cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: transparent; color: var(--text); border-color: var(--border-strong);
+        }
+        .btn-secondary:hover { background: var(--panel); border-color: var(--text); }
+
+        .offline-notice {
+            margin-top: 32px; padding: 16px 20px;
+            background: var(--panel); border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px; max-width: 520px;
+            font-size: 13.5px; color: var(--text-soft);
+            display: none;
+        }
+        .offline-notice.show { display: block; }
+        .offline-notice strong { color: var(--text); display: block; margin-bottom: 4px; }
+        .offline-notice a { color: var(--accent); }
+
         footer {
-            margin-top: 60px;
-            display: flex;
-            gap: 24px;
-            font-size: 13px;
-            color: #475569;
+            padding: 36px 56px;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 16px;
+            font-family: var(--font-mono); font-size: 11px;
+            letter-spacing: 0.10em; color: var(--muted);
+            text-transform: uppercase;
+            border-top: 1px solid var(--border);
         }
-        footer a { color: #6366f1; text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
+        footer .links { display: flex; gap: 24px; }
+        footer a { color: var(--muted); text-decoration: none; transition: color .15s; }
+        footer a:hover { color: var(--accent); }
+
+        @media (max-width: 720px) {
+            header.site, main, footer { padding-left: 28px; padding-right: 28px; }
+            main { padding-top: 48px; padding-bottom: 48px; }
+            .nav-meta span:last-child { display: none; }
+        }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <div class="logo">🎓</div>
-        <h1>Skolarly</h1>
-        <p>Tu plataforma de estudio personal. Sincroniza tus clases desde Canvas y Google Classroom, organiza tu calendario y estudia en grupo con tus compañeros.</p>
+    <header class="site">
+        <span class="brand">Skolarly</span>
+        <nav class="nav-meta">
+            <span><span class="status-dot" id="status-dot"></span><span id="status-label">Comprobando…</span></span>
+            <span class="accent">№ MMXXVI · 001</span>
+        </nav>
+    </header>
 
-        <div class="features">
-            <div class="feat"><span>📚</span> Material de estudio</div>
-            <div class="feat"><span>📅</span> Calendario unificado</div>
-            <div class="feat"><span>🤖</span> Asistente IA</div>
-            <div class="feat"><span>👥</span> Grupos de estudio</div>
-            <div class="feat"><span>🔌</span> Canvas & Classroom</div>
+    <main>
+        <span class="eyebrow">Plataforma para estudiantes</span>
+        <h1>Estudia con<br/><em>intención</em>.</h1>
+        <p class="tagline">
+            Sincroniza Canvas y Google Classroom, organiza tu calendario,
+            arma plan de estudio con IA y conecta con compañeros.
+        </p>
+
+        <div class="cta-group">
+            <a class="btn-primary" id="cta-app" href="#">
+                Abrir aplicación
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a class="btn-secondary" href="/privacy.html">Privacidad</a>
+            <a class="btn-secondary" href="/terms.html">Términos</a>
         </div>
 
-        <a class="cta" href="http://localhost:5173">Abrir App →</a>
-    </div>
+        <div class="offline-notice" id="offline-notice">
+            <strong>La app está temporalmente desconectada.</strong>
+            Estamos en demo y a veces el servidor se duerme. Vuelve a intentar
+            en unos minutos.
+        </div>
+    </main>
 
     <footer>
-        <a href="/privacy.html">Política de Privacidad</a>
-        <a href="/terms.html">Términos de Servicio</a>
-        <span>© 2026 Skolarly</span>
+        <span>© MMXXVI Skolarly</span>
+        <div class="links">
+            <a href="/privacy.html">Privacidad</a>
+            <a href="/terms.html">Términos</a>
+            <a href="mailto:support@skolarly.cl">Contacto</a>
+        </div>
     </footer>
+
+    <script>
+        // The "Abrir aplicación" button reads the current tunnel URL from
+        // urls.json (committed alongside this page). A local watchdog
+        // updates that file when it restarts the tunnels, so this landing
+        // keeps working even when the underlying tunnel URLs rotate.
+        async function loadAppUrl() {
+            const cta = document.getElementById("cta-app");
+            const dot = document.getElementById("status-dot");
+            const label = document.getElementById("status-label");
+            const notice = document.getElementById("offline-notice");
+
+            try {
+                const res = await fetch(`/urls.json?t=${Date.now()}`, { cache: "no-store" });
+                if (!res.ok) throw new Error("no urls.json");
+                const data = await res.json();
+                if (!data.app) throw new Error("no app URL");
+
+                // Reachability check — try /health on the API tunnel.
+                let online = false;
+                if (data.api) {
+                    try {
+                        const ctrl = new AbortController();
+                        const t = setTimeout(() => ctrl.abort(), 4000);
+                        const probe = await fetch(`${data.api}/health`, { signal: ctrl.signal });
+                        clearTimeout(t);
+                        online = probe && probe.ok;
+                    } catch { online = false; }
+                }
+
+                cta.href = data.app;
+                if (online) {
+                    dot.classList.remove("offline");
+                    label.textContent = "En línea";
+                    notice.classList.remove("show");
+                    cta.classList.remove("disabled");
+                } else {
+                    dot.classList.add("offline");
+                    label.textContent = "Reconectando…";
+                    notice.classList.add("show");
+                    cta.classList.add("disabled");
+                }
+            } catch {
+                dot.classList.add("offline");
+                label.textContent = "Desconectado";
+                notice.classList.add("show");
+                cta.classList.add("disabled");
+            }
+        }
+        loadAppUrl();
+        setInterval(loadAppUrl, 30000);
+    </script>
 </body>
 </html>
